@@ -38,39 +38,10 @@ target_link_libraries(StockBeansLib PRIVATE
         Qt${QT_VERSION_MAJOR}::Widgets
 )
 
+# Hiervor müssen die LibSources und projectSources feststehen
+add_subdirectory(tests)
 
-# Sammeln der Dateien für die Unittests
-set (TEST_SOURCES
-    tests/testmain.cpp
-)
-
-
-
-# Fügen Sie Unittests hinzu
-# Jetzt bekommt also die .exe für die Tests alle Inhalte der PROJECT_SOURCES und
-# der offensichtlichen Testdateien (die hoffentlich immer test im Namen haben)
-# sie heißt mediaSelectorTests
-if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(StockBeansTests
-        ${PROJECT_SOURCES}
-        #${LIB_SOURCES}
-        ${TEST_SOURCES}
-    )
-else()
-    add_executable(StockBeansTests
-        ${PROJECT_SOURCES}
-        #${LIB_SOURCES}
-        ${TEST_SOURCES}
-    )
-endif()
-
-# Pakete mit der Test-Executable verbinden
-target_link_libraries(StockBeansTests PRIVATE
-    Qt${QT_VERSION_MAJOR}::Widgets
-)
-
-
-
+#
 # Erstelle die Anwendung, achte auf den Suffix App
 add_executable(StockBeansApp
     main.cpp
