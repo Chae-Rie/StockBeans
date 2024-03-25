@@ -9,62 +9,104 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Ausmachen der QT-Pakete
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS
+    Widgets
+)
 
 set(PROJECT_SOURCES
-        main.cpp
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
 )
 
-if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(StockBeans
-        MANUAL_FINALIZATION
-        ${PROJECT_SOURCES}
-    )
-# Define target properties for Android with Qt 6 as:
-#    set_property(TARGET StockBeans APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
-#                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
-# For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
-else()
-    if(ANDROID)
-        add_library(StockBeans SHARED
-            ${PROJECT_SOURCES}
-        )
-# Define properties for Android with Qt 5 after find_package() calls as:
-#    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
-    else()
-        add_executable(StockBeans
-            ${PROJECT_SOURCES}
-        )
-    endif()
-endif()
+# Alles was ich fernab der GUI erzeuge und kein Test ist, wird hier erfasst
+# set (LIB_SOURCES
 
-target_link_libraries(StockBeans PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+# )
 
-# Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
-# If you are developing for iOS or macOS you should consider setting an
-# explicit, fixed bundle identifier manually though.
-if(${QT_VERSION} VERSION_LESS 6.1.0)
-  set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.example.StockBeans)
-endif()
-set_target_properties(StockBeans PROPERTIES
-    ${BUNDLE_ID_OPTION}
-    MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
-    MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
-    MACOSX_BUNDLE TRUE
-    WIN32_EXECUTABLE TRUE
+# Erstelle eine statische Bibliothek für das Hauptprojekt
+# Hier ist alles drin außerhalb der Main-Schleifen
+add_library(StockBeansLib STATIC
+    ${PROJECT_SOURCES}
+    # ${LIB_SOURCES}
 )
 
+# Verknüpfen der Bibliothek mit allem was sie braucht um lauffähig zu sein
+target_link_libraries(StockBeansLib PRIVATE
+        Qt${QT_VERSION_MAJOR}::Widgets
+)
+
+
+# Sammeln der Dateien für die Unittests
+set (TEST_SOURCES
+    tests/testmain.cpp
+)
+
+
+
+# Fügen Sie Unittests hinzu
+# Jetzt bekommt also die .exe für die Tests alle Inhalte der PROJECT_SOURCES und
+# der offensichtlichen Testdateien (die hoffentlich immer test im Namen haben)
+# sie heißt mediaSelectorTests
+if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
+    qt_add_executable(StockBeansTests
+        ${PROJECT_SOURCES}
+        #${LIB_SOURCES}
+        ${TEST_SOURCES}
+    )
+else()
+    add_executable(StockBeansTests
+        ${PROJECT_SOURCES}
+        #${LIB_SOURCES}
+        ${TEST_SOURCES}
+    )
+endif()
+
+# Pakete mit der Test-Executable verbinden
+target_link_libraries(StockBeansTests PRIVATE
+    Qt${QT_VERSION_MAJOR}::Widgets
+)
+
+
+
+# Erstelle die Anwendung, achte auf den Suffix App
+add_executable(StockBeansApp
+    main.cpp
+)
+
+
+# Verknüpfen der gefundenen Pakete mit der Anwendungs-Target
+# Heißt die ausführbare Datei
+target_link_libraries(StockBeansApp PRIVATE
+    StockBeansLib
+    Qt${QT_VERSION_MAJOR}::Widgets
+)
+
+# Setze die Ziel-Eigenschaften für die Unittests
+set_target_properties(StockBeansTests PROPERTIES
+    MACOSX_BUNDLE TRUE
+    WIN32_EXECUTABLE TRUE
+    BUNDLE_ID "com.example.StockBeansTests.tests"
+)
+
+# Setze die Ziel-Eigenschaften für die Anwendung
+set_target_properties(StockBeansApp PROPERTIES
+    MACOSX_BUNDLE TRUE
+    WIN32_EXECUTABLE TRUE
+    BUNDLE_ID "com.example.StockBeansTests.app"
+)
+
+
 include(GNUInstallDirs)
-install(TARGETS StockBeans
+install(TARGETS StockBeansApp StockBeansLib
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )
 
 if(QT_VERSION_MAJOR EQUAL 6)
-    qt_finalize_executable(StockBeans)
+    qt_finalize_executable(StockBeansApp)
 endif()
