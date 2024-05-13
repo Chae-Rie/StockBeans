@@ -11,7 +11,9 @@ set(LIB_SOURCES
     mainwindow.h
     mainwindow.ui
     databasemanager.h databasemanager.cpp
-    login.h login.cpp
+    logindialog.h logindialog.cpp logindialog.ui
+    helperfunction.h helperfunction.cpp
+    types.h
 )
 
 # Eine statische Bibliothek erzeugen, auf die sich unter anderem das Testprojekt beziehen wird
@@ -23,4 +25,5 @@ add_library(StockBeansLib STATIC
 # Verknüpfen der Bibliothek mit allem was sie braucht um lauffähig zu sein
 target_link_libraries(StockBeansLib PRIVATE
         Qt${QT_VERSION_MAJOR}::Widgets
+        Qt${QT_VERSION_MAJOR}::Sql
 )
