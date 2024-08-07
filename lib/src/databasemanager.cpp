@@ -24,11 +24,16 @@ bool DatabaseManager::ConnectDatabase()
     QString password = "stockbeans1337!";
 
 
-    // TODO: Verwende den Parser den Du geschrieben hast, für die .env Dateien.
-    // So kannst Du relativ comfortabel die Logins transportieren
-
     // TODO: Hol die .env Datei
+    // TODO: der relative Pfad passt nicht, könnte theorethisch den Pfad mithilfe von MyTools::Fileparser::GetSourceDirPath()
+    // den Pfad bestimmen
 
+    std::string SourcePath = MyTools::Fileparser::GetSourceDirPath();
+
+    SourcePath += "/.env";
+    std::unordered_map<std::string, std::string>envMap = MyTools::Fileparser::parseEnvFile(SourcePath);
+
+    std::string stDbname = MyTools::Fileparser::getValueByKey(envMap, "DBNAME");
 
     // Datenbankverbindung initialisieren
     QSqlDatabase db = QSqlDatabase::addDatabase("QPSQL");
