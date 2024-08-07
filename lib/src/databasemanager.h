@@ -9,6 +9,8 @@
 #include <QtSql/QSqlError>
 
 #include "types.h"
+#include "../../../MyTools/include/MyTools/fileparser.h"
+
 
 class DatabaseManager
 {

@@ -1,5 +1,6 @@
 #include "databasemanager.h"
 
+
 DatabaseManager::DatabaseManager() {}
 
 DatabaseManager::~DatabaseManager()
@@ -8,14 +9,12 @@ DatabaseManager::~DatabaseManager()
 // Für Testzwecke und Mobiles arbeiten könnte ich eine Qsqlite Datenbank verwenden, aber für die tatsächliche
 // Implementierung sollte ich etwas anderes verwenden, was ich auch auf dem Raspi- zum Laufen bekomme
 
+/*
+Es ist wichtig, dass unbedingt libpq.5.dylib eingebunden wird, die aus dem Postgresql@15 Ordner in opt/homebrew/cellar... kommt.
+Andernfalls kann sich Postgresql nicht verbinden
+*/
 bool DatabaseManager::ConnectDatabase()
 {
-    // 192.168.0.205 Raspi Login
-    // QString hostname = "192.168.0.205";
-    // int port = 5432; // Der Port, auf dem PostgreSQL läuft (Standardport ist 5432)
-    // QString dbname = "postgres"; // Der Name der Datenbank
-    // QString username = "postgres"; // Der Benutzername für die Datenbankverbindung
-    // QString password = "postgres"; // Das Passwort für die Datenbankverbindung
 
     // Lokale DB aktuell
     QString hostname = "localhost";
@@ -24,6 +23,11 @@ bool DatabaseManager::ConnectDatabase()
     QString username = "stockbeans";
     QString password = "stockbeans1337!";
 
+
+    // TODO: Verwende den Parser den Du geschrieben hast, für die .env Dateien.
+    // So kannst Du relativ comfortabel die Logins transportieren
+
+    // TODO: Hol die .env Datei
 
 
     // Datenbankverbindung initialisieren

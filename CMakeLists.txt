@@ -12,6 +12,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Setting Custom Environment variables
 #set(QT_DEBUG_PLUGINS ON)
 
+if(NOT PROJECT_IS_TOP_LEVEL)
+  message(FATAL_ERROR "project is intended to be a standalone, top-level project. Do not vendor this directory.")
+endif()
+
+
 # Ausmachen der QT-Pakete
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS
@@ -19,6 +24,12 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS
     Sql
 )
 
+# Setting up my own library
+set(MyTools_lib_DIR "/Users/yoocherry/dev/thirdparty/cmake_packages/MyTools-install/cmake")
+find_package(MyTools_lib 1 CONFIG REQUIRED)
+# Setzt das Makro SOURCE_DIR auf das Quellverzeichnis
+# Needed for one function in the lib -> fileparser.h -> uses this macro to specify where the source-directory is to orientate itself
+add_compile_definitions(SOURCE_DIR="${CMAKE_SOURCE_DIR}")
 
 add_subdirectory(lib/src/)
 
@@ -38,6 +49,7 @@ target_link_libraries(StockBeansApp PRIVATE
     StockBeansLib
     Qt${QT_VERSION_MAJOR}::Widgets
     Qt${QT_VERSION_MAJOR}::Sql
+    MyTools_lib::MyTools_lib
 )
 
 # Setze die Ziel-Eigenschaften für die Unittests
