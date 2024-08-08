@@ -16,32 +16,28 @@ Andernfalls kann sich Postgresql nicht verbinden
 bool DatabaseManager::ConnectDatabase()
 {
 
-    // Lokale DB aktuell
-    QString hostname = "localhost";
-    constexpr int port = 5432;
-    QString dbname = "stockbeans";
-    QString username = "stockbeans";
-    QString password = "stockbeans1337!";
-
-
-    // TODO: Hol die .env Datei
-    // TODO: der relative Pfad passt nicht, könnte theorethisch den Pfad mithilfe von MyTools::Fileparser::GetSourceDirPath()
-    // den Pfad bestimmen
-
     std::string SourcePath = MyTools::Fileparser::GetSourceDirPath();
 
     SourcePath += "/.env";
     std::unordered_map<std::string, std::string>envMap = MyTools::Fileparser::parseEnvFile(SourcePath);
 
-    std::string stDbname = MyTools::Fileparser::getValueByKey(envMap, "DBNAME");
+    // Lokale DB aktuell
+    std::string hostname = MyTools::Fileparser::getValueByKey(envMap, "HOST");
+    std::string port = MyTools::Fileparser::getValueByKey(envMap, "PORT");
+    std::string dbname = MyTools::Fileparser::getValueByKey(envMap, "DBNAME");
+    std::string username = MyTools::Fileparser::getValueByKey(envMap, "USERNAME");
+    std::string password = MyTools::Fileparser::getValueByKey(envMap, "PASSWORD");
+
+
+
 
     // Datenbankverbindung initialisieren
     QSqlDatabase db = QSqlDatabase::addDatabase("QPSQL");
-    db.setHostName(hostname);
-    db.setPort(port);
-    db.setDatabaseName(dbname);
-    db.setUserName(username);
-    db.setPassword(password);
+    db.setHostName(QString::fromStdString(hostname));
+    db.setPort(std::stoi( port ));
+    db.setDatabaseName(QString::fromStdString(dbname));
+    db.setUserName(QString::fromStdString(username));
+    db.setPassword(QString::fromStdString(password));
 
     // Verbindung zur Datenbank herstellen
     if (db.open()) {
