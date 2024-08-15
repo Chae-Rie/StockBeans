@@ -20,5 +20,9 @@ LoginDialog::~LoginDialog()
 // eine Query an die DB erzeugt werden.
 void LoginDialog::OnClickRegister()
 {
+   QString givenEmail =  m_ui->lineEditEmail->text();
+   QString givenPassword = m_ui->lineEditPassword->text();
 
+
+    int i = 1;
 }

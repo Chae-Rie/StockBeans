@@ -13,9 +13,11 @@ set(LIB_SOURCES
     databasemanager.h databasemanager.cpp
     logindialog.h logindialog.cpp logindialog.ui
     helperfunction.h helperfunction.cpp
+    corelogger.h corelogger.cpp
     types.h
 )
 
+#corelogger.h corelogger.cpp
 # Eine statische Bibliothek erzeugen, auf die sich unter anderem das Testprojekt beziehen wird
 add_library(StockBeansLib STATIC
     ${LIB_SOURCES}
@@ -26,4 +28,5 @@ add_library(StockBeansLib STATIC
 target_link_libraries(StockBeansLib PRIVATE
         Qt${QT_VERSION_MAJOR}::Widgets
         Qt${QT_VERSION_MAJOR}::Sql
+        spdlog::spdlog
 )

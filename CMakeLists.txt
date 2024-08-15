@@ -24,12 +24,17 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS
     Sql
 )
 
-# Setting up my own library
+# Setting up my own library k
 set(MyTools_lib_DIR "/Users/yoocherry/dev/thirdparty/cmake_packages/MyTools-install/cmake")
 find_package(MyTools_lib 1 CONFIG REQUIRED)
 # Setzt das Makro SOURCE_DIR auf das Quellverzeichnis
 # Needed for one function in the lib -> fileparser.h -> uses this macro to specify where the source-directory is to orientate itself
 add_compile_definitions(SOURCE_DIR="${CMAKE_SOURCE_DIR}")
+
+
+#include spdlog as logging library
+find_package(spdlog REQUIRED)
+
 
 add_subdirectory(lib/src/)
 
@@ -50,6 +55,8 @@ target_link_libraries(StockBeansApp PRIVATE
     Qt${QT_VERSION_MAJOR}::Widgets
     Qt${QT_VERSION_MAJOR}::Sql
     MyTools_lib::MyTools_lib
+    spdlog::spdlog
+
 )
 
 # Setze die Ziel-Eigenschaften für die Unittests

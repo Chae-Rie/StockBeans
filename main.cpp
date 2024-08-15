@@ -1,25 +1,47 @@
 #include "lib/src/logindialog.h"
 #include "lib/src/databasemanager.h"
 #include "lib/src/helperfunction.h"
+#include "lib/src/corelogger.h"
+
 
 #include <QApplication>
-//#include "MyTools/fileparser.h"
+
+// Setze den Log-Level basierend auf dem Modus
+#ifdef NDEBUG
+constexpr spdlog::level::level_enum logLevel = spdlog::level::info; // Release-Modus
+#else
+constexpr spdlog::level::level_enum logLevel = spdlog::level::debug; // Debug-Modus
+#endif
+/*
+Es erscheint mir sinnvoll, von Anfang spdlog als Logger zu implementieren, damit ich direkt auf die Angenehmlichkeiten der smarten Features zurückgreifen kann
+
+TODO: get it through homebrew and include it through CMake
+*/
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
+    CoreLogger coreLogger;
+
+    coreLogger.SetupLogger(logLevel);
 
     // Setup Database
 
+    SPDLOG_DEBUG("TestDebug");
     DatabaseManager dbManager;
     dbManager.ConnectDatabase();
 
+    // TODO: Why did I get the timestamp?
     QString currentTimeStamp = HelperFunction::GetCurrentTime();
+
     // LoginDialog bekommt dbManager als Referenz übergeben, da wir im Dialog Queries versenden
     // wollen -> TODO: ggf. std::shared_pointer verwenden, falls die Übersicht verloren gehen sollte.
     LoginDialog loginDialog(dbManager);
     loginDialog.show();
+
+
+// don't show the mainwindow until I logged in successfully!
 
     // MainWindow w;
     // w.show();
