@@ -2,8 +2,6 @@
 #include "lib/src/databasemanager.h"
 #include "lib/src/helperfunction.h"
 #include "lib/src/corelogger.h"
-
-
 #include <QApplication>
 
 // Setze den Log-Level basierend auf dem Modus
@@ -26,9 +24,11 @@ int main(int argc, char *argv[])
 
     coreLogger.SetupLogger(logLevel);
 
-    // Setup Database
 
-    SPDLOG_DEBUG("TestDebug");
+
+    SPDLOG_INFO("Starting Application...");
+
+    // Setup Database
     DatabaseManager dbManager;
     dbManager.ConnectDatabase();
 

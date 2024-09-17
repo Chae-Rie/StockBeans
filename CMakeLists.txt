@@ -15,7 +15,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 if(NOT PROJECT_IS_TOP_LEVEL)
   message(FATAL_ERROR "project is intended to be a standalone, top-level project. Do not vendor this directory.")
 endif()
-
+# Gets the path of the QTfiles
+set(CMAKE_PREFIX_PATH "$ENV{HOME}/dev/qt_framework/6.6.2/macos")
+set(QT_DIR "$ENV{HOME}/dev/qt_framework/6.6.2/macos/lib/cmake/Qt6")
+set(fmt_DIR "opt/homebrew/lib/cmake/fmt")
+set(spdlog_DIR "opt/homebrew/lib/cmake/spdlog")
 
 # Ausmachen der QT-Pakete
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
