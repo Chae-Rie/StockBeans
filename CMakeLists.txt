@@ -15,11 +15,21 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 if(NOT PROJECT_IS_TOP_LEVEL)
   message(FATAL_ERROR "project is intended to be a standalone, top-level project. Do not vendor this directory.")
 endif()
+
 # Gets the path of the QTfiles
 set(CMAKE_PREFIX_PATH "$ENV{HOME}/dev/qt_framework/6.6.2/macos")
 set(QT_DIR "$ENV{HOME}/dev/qt_framework/6.6.2/macos/lib/cmake/Qt6")
-set(fmt_DIR "opt/homebrew/lib/cmake/fmt")
-set(spdlog_DIR "opt/homebrew/lib/cmake/spdlog")
+
+
+# Set the path to vcpkg --> it is in the project folder because
+# this makes it more modular
+set(CMAKE_TOOLCHAIN_FILE
+        ${CMAKE_SOURCE_DIR}/vcpkg/scripts/buildsystems/vcpkg.cmake CACHE STRING
+        "Vcpkg toolchain file"
+)
+
+#set(fmt_DIR "opt/homebrew/lib/cmake/fmt")
+#set(spdlog_DIR "opt/homebrew/lib/cmake/spdlog")
 
 # Ausmachen der QT-Pakete
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
@@ -31,6 +41,8 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS
 # Setting up my own library k
 set(MyTools_lib_DIR "/Users/yoocherry/dev/thirdparty/cmake_packages/MyTools-install/cmake")
 find_package(MyTools_lib 1 CONFIG REQUIRED)
+
+# TODO: Refactor the env-parsing, I might transform this into parsing a JSON-file instead of this primitve .env
 # Setzt das Makro SOURCE_DIR auf das Quellverzeichnis
 # Needed for one function in the lib -> fileparser.h -> uses this macro to specify where the source-directory is to orientate itself
 add_compile_definitions(SOURCE_DIR="${CMAKE_SOURCE_DIR}")
@@ -42,11 +54,10 @@ find_package(spdlog REQUIRED)
 
 add_subdirectory(lib/src/)
 
-# Hiervor müssen die LibSources und projectSources feststehen
+# I need all the project sources here already
 add_subdirectory(tests)
 
-#
-# Erstelle die Anwendung, achte auf den Suffix App
+# Create the main-App, there are also StockBeans-Lib and Tests, so take care
 add_executable(StockBeansApp
     main.cpp
 )

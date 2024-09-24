@@ -73,4 +73,6 @@ CMakeLists.txt.user*
 *.exe
 *.env
 lib/build-src-Qt*
+vcpkg/
+
 

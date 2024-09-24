@@ -26,3 +26,22 @@ void LoginDialog::OnClickRegister()
 
     int i = 1;
 }
+
+void LoginDialog::onLoginClicked() {
+    // TODO: Add logic to handle login
+    QString username = usernameField->text();
+    QString password = passwordField->text();
+
+    if (username.isEmpty() || password.isEmpty()) {
+        // Inform the user to fill in both fields
+    } else {
+        // Validate credentials
+    }
+}
+
+void LoginDialog::onRegisterClicked() {
+}
+
+void LoginDialog::onCancelClicked() {
+    reject();
+}
