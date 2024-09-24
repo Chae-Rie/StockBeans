@@ -10,15 +10,10 @@ constexpr spdlog::level::level_enum logLevel = spdlog::level::info; // Release-M
 #else
 constexpr spdlog::level::level_enum logLevel = spdlog::level::debug; // Debug-Modus
 #endif
-/*
-Es erscheint mir sinnvoll, von Anfang spdlog als Logger zu implementieren, damit ich direkt auf die Angenehmlichkeiten der smarten Features zurückgreifen kann
-
-TODO: get it through homebrew and include it through CMake
-*/
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
+    QApplication application(argc, argv);
 
     CoreLogger coreLogger;
 
@@ -30,7 +25,10 @@ int main(int argc, char *argv[])
 
     // Setup Database
     DatabaseManager dbManager;
-    dbManager.ConnectDatabase();
+    // TODO: Implement the JSON parsing
+    // TODO: construct the connectionstring
+    // TODO: Connect to the database
+//    dbManager.ConnectDatabase();
 
     // TODO: Why did I get the timestamp?
     QString currentTimeStamp = HelperFunction::GetCurrentTime();
@@ -45,5 +43,5 @@ int main(int argc, char *argv[])
 
     // MainWindow w;
     // w.show();
-    return a.exec();
+    return application.exec();
 }

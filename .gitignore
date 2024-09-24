@@ -76,3 +76,4 @@ lib/build-src-Qt*
 vcpkg/
 
 
+!/config.json

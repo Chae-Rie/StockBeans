@@ -16,41 +16,46 @@ if(NOT PROJECT_IS_TOP_LEVEL)
   message(FATAL_ERROR "project is intended to be a standalone, top-level project. Do not vendor this directory.")
 endif()
 
-# Gets the path of the QTfiles
-set(CMAKE_PREFIX_PATH "$ENV{HOME}/dev/qt_framework/6.6.2/macos")
-set(QT_DIR "$ENV{HOME}/dev/qt_framework/6.6.2/macos/lib/cmake/Qt6")
-
-
-# Set the path to vcpkg --> it is in the project folder because
-# this makes it more modular
+# resolve some important paths:
+#       - Some of the packages are installed on my dev machine, like QT... I won't be setting them into the project
+#       - Some of the packages are going to be resolved automatically, when I specify the vcpkg-toolchain
+#       - Some of the packages are NOT going to be resolved automatically, so I just specify the path manually...
+# ----------------------------------------------------------------------------------------------------------------------
+# First get the vcpkg-toolchain file and use it for all the packages installed
 set(CMAKE_TOOLCHAIN_FILE
-        ${CMAKE_SOURCE_DIR}/vcpkg/scripts/buildsystems/vcpkg.cmake CACHE STRING
+        ${CMAKE_CURRENT_LIST_DIR}/vcpkg/scripts/buildsystems/vcpkg.cmake CACHE STRING
         "Vcpkg toolchain file"
 )
 
-#set(fmt_DIR "opt/homebrew/lib/cmake/fmt")
-#set(spdlog_DIR "opt/homebrew/lib/cmake/spdlog")
+# the vcpkg_installed-directory is the one where installed packages in the manifest mode are going to be placed
+# this is highly propretary because I hardcode the OS, but this will be a problem of another day. The share-directory
+# is working fine.
+set(nlohmann_json_DIR "${CMAKE_CURRENT_LIST_DIR}/vcpkg_installed/arm64-osx/share/nlohmann_json")
 
-# Ausmachen der QT-Pakete
+# QT paths on the dev machine... using QT 6.6.2 --> make sure the path is still valid after some updates on the framework
+set(CMAKE_PREFIX_PATH "$ENV{HOME}/dev/qt_framework/6.6.2/macos")
+set(QT_DIR "$ENV{HOME}/dev/qt_framework/6.6.2/macos/lib/cmake/Qt6")
+
+# Setting up my own library # TODO: This needs to be updated
+# TODO: Refactor the env-parsing, I might transform this into parsing a JSON-file instead of this primitve .env
+set(MyTools_lib_DIR "/Users/yoocherry/dev/thirdparty/cmake_packages/MyTools-install/cmake")
+find_package(MyTools_lib 1 CONFIG REQUIRED)
+
+# now it finds the packages for the QT files
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS
     Widgets
     Sql
 )
 
-# Setting up my own library k
-set(MyTools_lib_DIR "/Users/yoocherry/dev/thirdparty/cmake_packages/MyTools-install/cmake")
-find_package(MyTools_lib 1 CONFIG REQUIRED)
-
-# TODO: Refactor the env-parsing, I might transform this into parsing a JSON-file instead of this primitve .env
-# Setzt das Makro SOURCE_DIR auf das Quellverzeichnis
+# TODO: This can be deleted when the JSON parsing is finished
 # Needed for one function in the lib -> fileparser.h -> uses this macro to specify where the source-directory is to orientate itself
 add_compile_definitions(SOURCE_DIR="${CMAKE_SOURCE_DIR}")
 
-
-#include spdlog as logging library
-find_package(spdlog REQUIRED)
-
+# logging library
+find_package(spdlog CONFIG REQUIRED)
+# library for managing json files
+find_package(nlohmann_json CONFIG REQUIRED)
 
 add_subdirectory(lib/src/)
 
@@ -62,7 +67,6 @@ add_executable(StockBeansApp
     main.cpp
 )
 
-
 # Verknüpfen der gefundenen Pakete mit der Anwendungs-Target
 # Heißt die ausführbare Datei
 target_link_libraries(StockBeansApp PRIVATE
@@ -71,23 +75,22 @@ target_link_libraries(StockBeansApp PRIVATE
     Qt${QT_VERSION_MAJOR}::Sql
     MyTools_lib::MyTools_lib
     spdlog::spdlog
-
+    nlohmann_json::nlohmann_json
 )
 
-# Setze die Ziel-Eigenschaften für die Unittests
+# Setting properties for the tests
 set_target_properties(StockBeansTests PROPERTIES
     MACOSX_BUNDLE TRUE
     WIN32_EXECUTABLE TRUE
     BUNDLE_ID "com.example.StockBeansTests.tests"
 )
 
-# Setze die Ziel-Eigenschaften für die Anwendung
+# Setting properties for the App
 set_target_properties(StockBeansApp PROPERTIES
     MACOSX_BUNDLE TRUE
     WIN32_EXECUTABLE TRUE
     BUNDLE_ID "com.example.StockBeansTests.app"
 )
-
 
 include(GNUInstallDirs)
 install(TARGETS StockBeansApp StockBeansLib

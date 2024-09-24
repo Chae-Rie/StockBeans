@@ -1,0 +1,24 @@
+{
+  "appConfig": {
+    "appName": "StockBeans",
+    "version": "1.0.0",
+    "defaultLanguage": "de",
+    "maxRetries": 3
+  },
+  "databaseConfig": {
+    "production": {
+      "host": "notGiven",
+      "port": 5432,
+      "username": "defaultUser",
+      "password": "securepassword",
+      "databaseName": "defaultDBname"
+    },
+    "development": {
+      "host": "localhost",
+      "port": 5432,
+      "username": "stockbeans",
+      "password": "stockbeans1337!",
+      "databaseName": "stockbeans"
+    }
+  }
+}
