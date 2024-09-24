@@ -11,15 +11,21 @@ constexpr spdlog::level::level_enum logLevel = spdlog::level::info; // Release-M
 constexpr spdlog::level::level_enum logLevel = spdlog::level::debug; // Debug-Modus
 #endif
 
+#include <MyTools/jsonmanager.h>
+#include <MyTools/fileparser.h>
 int main(int argc, char *argv[])
 {
+    // Creating the main application
     QApplication application(argc, argv);
 
+    // Set up the corelogging pool which will be handed to every important object
     CoreLogger coreLogger;
-
     coreLogger.SetupLogger(logLevel);
 
-
+    // Gets the filepath of root-CMakeLists.txt because I can use that path as a basepath for other file operations
+    std::string sourceFilePath = MyTools::Fileparser::GetSourceDirPath();
+    // Gets the contents of the config files
+    json configurationFile = MyTools::JsonManager::ReadFile(sourceFilePath + "/vcpkg.json");
 
     SPDLOG_INFO("Starting Application...");
 
