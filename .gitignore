@@ -74,6 +74,4 @@ CMakeLists.txt.user*
 *.env
 lib/build-src-Qt*
 vcpkg/
-
-
 /config.json

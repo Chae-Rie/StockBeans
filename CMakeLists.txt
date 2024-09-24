@@ -36,9 +36,9 @@ set(nlohmann_json_DIR "${CMAKE_CURRENT_LIST_DIR}/vcpkg_installed/arm64-osx/share
 set(CMAKE_PREFIX_PATH "$ENV{HOME}/dev/qt_framework/6.6.2/macos")
 set(QT_DIR "$ENV{HOME}/dev/qt_framework/6.6.2/macos/lib/cmake/Qt6")
 
-# Setting up my own library # TODO: This needs to be updated
 # TODO: Refactor the env-parsing, I might transform this into parsing a JSON-file instead of this primitve .env
-set(MyTools_lib_DIR "/Users/yoocherry/dev/thirdparty/cmake_packages/MyTools-install/cmake")
+# This is the place where I installed my lib and where my cmake files are located
+set (MyTools_lib_DIR "${CMAKE_CURRENT_LIST_DIR}/cmake/MyTools/cmake")
 find_package(MyTools_lib 1 CONFIG REQUIRED)
 
 # now it finds the packages for the QT files
