@@ -5,6 +5,7 @@
 #include <QCryptographicHash>
 #include <QDateTime>
 
+# TODO: This doesn't need to be a class. MISC? Delete it completely?
 class HelperFunction
 {
 public:

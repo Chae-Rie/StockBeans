@@ -13,6 +13,7 @@ constexpr spdlog::level::level_enum logLevel = spdlog::level::debug; // Debug-Mo
 
 #include <MyTools/jsonmanager.h>
 #include <MyTools/fileparser.h>
+#include <MyTools/misc.h>
 int main(int argc, char *argv[])
 {
     // Creating the main application
@@ -23,7 +24,7 @@ int main(int argc, char *argv[])
     coreLogger.SetupLogger(logLevel);
 
     // Gets the filepath of root-CMakeLists.txt because I can use that path as a basepath for other file operations
-    std::string sourceFilePath = MyTools::Fileparser::GetSourceDirPath();
+    std::string sourceFilePath = MyTools::Misc::GetSourceDir();
     // Gets the contents of the config files
     json configurationFile = MyTools::JsonManager::ReadFile(sourceFilePath + "/vcpkg.json");
 

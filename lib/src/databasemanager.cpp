@@ -1,5 +1,6 @@
 #include "databasemanager.h"
 #include "../../../MyTools/include/MyTools/fileparser.h"
+#include "../../cmake/MyTools/include/MyTools/misc.h"
 
 DatabaseManager::DatabaseManager() {}
 
@@ -17,7 +18,7 @@ bool DatabaseManager::ConnectDatabase()
 {
 
     // Read out that local .env-file
-    std::string SourcePath = MyTools::Fileparser::GetSourceDirPath();
+    std::string SourcePath = MyTools::Misc::GetSourceDir();
     SourcePath += "/.env";
     std::unordered_map<std::string, std::string>envMap = MyTools::Fileparser::parseEnvFile(SourcePath);
 

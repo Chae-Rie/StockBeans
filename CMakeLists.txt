@@ -36,7 +36,6 @@ set(nlohmann_json_DIR "${CMAKE_CURRENT_LIST_DIR}/vcpkg_installed/arm64-osx/share
 set(CMAKE_PREFIX_PATH "$ENV{HOME}/dev/qt_framework/6.6.2/macos")
 set(QT_DIR "$ENV{HOME}/dev/qt_framework/6.6.2/macos/lib/cmake/Qt6")
 
-# TODO: Refactor the env-parsing, I might transform this into parsing a JSON-file instead of this primitve .env
 # This is the place where I installed my lib and where my cmake files are located
 set (MyTools_lib_DIR "${CMAKE_CURRENT_LIST_DIR}/cmake/MyTools/cmake")
 find_package(MyTools_lib 1 CONFIG REQUIRED)
@@ -48,7 +47,7 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS
     Sql
 )
 
-# TODO: This can be deleted when the JSON parsing is finished
+# TODO: Exclude the GetSourceDir-Function out of the fileparser, to make it widely accessible, bc. I don't want the fileparser anymore
 # Needed for one function in the lib -> fileparser.h -> uses this macro to specify where the source-directory is to orientate itself
 add_compile_definitions(SOURCE_DIR="${CMAKE_SOURCE_DIR}")
 
