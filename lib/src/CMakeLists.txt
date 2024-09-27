@@ -13,6 +13,7 @@ set(LIB_SOURCES
     helperfunction.h helperfunction.cpp
     corelogger.h corelogger.cpp
     types.h
+    settings.h settings.cpp
 )
 
 # Adds everything together so the result is a static library which can be linked from the StockBeansApp and StockBeansTests
@@ -28,4 +29,6 @@ target_link_libraries(StockBeansLib PRIVATE
         Qt${QT_VERSION_MAJOR}::Widgets
         Qt${QT_VERSION_MAJOR}::Sql
         spdlog::spdlog
+        nlohmann_json::nlohmann_json
+        MyTools_lib::MyTools_lib
 )

@@ -10,8 +10,8 @@
 
 #include "types.h"
 #include "corelogger.h"
-
-
+#include "settings.h"
+#include <MyTools/jsonmanager.h>
 class DatabaseManager
 {
 public:
@@ -19,6 +19,7 @@ public:
     virtual ~DatabaseManager();
 
     bool ConnectDatabase();
+    bool ConnectDatabase(json jsonFile,const Settings::DbConfig& config);
     bool QueryPostgres(USER_CREDENTIALS userCredentialContent);
     bool QueryPostgres(INVENTORY inventoryContent);
     bool QueryPostgres(TYPE typeContent);

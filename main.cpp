@@ -4,16 +4,25 @@
 #include "lib/src/corelogger.h"
 #include <QApplication>
 
-// Setze den Log-Level basierend auf dem Modus
+// Sets the logging level
 #ifdef NDEBUG
 constexpr spdlog::level::level_enum logLevel = spdlog::level::info; // Release-Modus
 #else
 constexpr spdlog::level::level_enum logLevel = spdlog::level::debug; // Debug-Modus
 #endif
 
+
 #include <MyTools/jsonmanager.h>
 #include <MyTools/fileparser.h>
 #include <MyTools/misc.h>
+#include "lib/src/settings.h"
+
+#ifdef NDEBUG
+constexpr auto currentDbConfig = Settings::DbConfig::Release;
+#else
+constexpr auto currentDbConfig = Settings::DbConfig::Debug;
+#endif
+
 int main(int argc, char *argv[])
 {
     // Creating the main application
@@ -32,10 +41,9 @@ int main(int argc, char *argv[])
 
     // Setup Database
     DatabaseManager dbManager;
-    // TODO: Implement the JSON parsing
     // TODO: construct the connectionstring
     // TODO: Connect to the database
-//    dbManager.ConnectDatabase();
+    //    dbManager.ConnectDatabase();
 
     // TODO: Why did I get the timestamp?
     QString currentTimeStamp = HelperFunction::GetCurrentTime();

@@ -47,6 +47,28 @@ bool DatabaseManager::ConnectDatabase()
         qDebug() << "Failed connecting to database with errormsg: " << db.lastError().text();
     }
 
+    return false;
+}
+//
+bool DatabaseManager::ConnectDatabase(json jsonFile, const Settings::DbConfig &config) {
+    std::string configIdentifier;
+
+    switch (config) {
+        case(Settings::DbConfig::Debug):
+            configIdentifier = "development";
+
+            // Now I can call a function to get a json fragment of the dbconfiguration
+
+            break;
+        case(Settings::DbConfig::Release):
+            // Now I can call a function to get a json fragment of the dbconfiguration
+            configIdentifier = "production";
+
+            break;
+        default:
+            break;
+    }
+    return false;
 }
 
 bool DatabaseManager::QueryPostgres(USER_CREDENTIALS userCredentialContent)
@@ -55,4 +77,5 @@ bool DatabaseManager::QueryPostgres(USER_CREDENTIALS userCredentialContent)
     // und sie anschließend mit dem Queryobjekt zu verknüpfen
     QSqlDatabase db = QSqlDatabase::database();
     QSqlQuery dbQuery(db);
+    return false;
 }
