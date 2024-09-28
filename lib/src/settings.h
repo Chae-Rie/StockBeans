@@ -10,9 +10,10 @@
 class Settings {
 public:
     Settings();
+
     virtual ~Settings();
 
-   // this enum class helps me to decide which database config I wanna use
+    // this enum class helps me to decide which database config I wanna use
     enum class DbConfig {
         Debug,
         Release
@@ -40,5 +41,6 @@ public:
         GeneralSettings generalSettings;
     };
 
+    bool LoadSettings(AppConfig appConfig, DbConfig dbConfig);
 };
 #endif //SETTINGS_H

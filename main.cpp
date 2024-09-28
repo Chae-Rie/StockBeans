@@ -23,8 +23,7 @@ constexpr auto currentDbConfig = Settings::DbConfig::Release;
 constexpr auto currentDbConfig = Settings::DbConfig::Debug;
 #endif
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     // Creating the main application
     QApplication application(argc, argv);
 
@@ -35,7 +34,14 @@ int main(int argc, char *argv[])
     // Gets the filepath of root-CMakeLists.txt because I can use that path as a basepath for other file operations
     std::string sourceFilePath = MyTools::Misc::GetSourceDir();
     // Gets the contents of the config files
-    json configurationFile = MyTools::JsonManager::ReadFile(sourceFilePath + "/vcpkg.json");
+    json configurationFile = MyTools::JsonManager::ReadFile(sourceFilePath + "/config.json");
+
+    // Gets the databaseconfig
+    json dbConfigFragment = MyTools::JsonManager::getDatabaseConfig(configurationFile, "development");
+    std::string value = MyTools::JsonManager::GetStringValue(dbConfigFragment, "host");
+
+    Settings::AppConfig appConfig;
+
 
     SPDLOG_INFO("Starting Application...");
 
@@ -54,7 +60,7 @@ int main(int argc, char *argv[])
     loginDialog.show();
 
 
-// don't show the mainwindow until I logged in successfully!
+    // don't show the mainwindow until I logged in successfully!
 
     // MainWindow w;
     // w.show();
