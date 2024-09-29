@@ -5,6 +5,7 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
+#include <MyTools/jsonmanager.h>
 #include <QString>
 
 class Settings {
@@ -22,7 +23,7 @@ public:
     struct DatabaseSettings {
         // TODO: trying to use QString instead of std::string//std::wstring
         QString host;
-        QString port;
+        int port;
         QString user;
         QString password;
         QString dbName;
@@ -32,15 +33,33 @@ public:
         QString appname;
         QString version;
         QString defaultLanguage;
-        QString maxRetries;
+        int maxRetries;
     };
 
     // Majorsetting object
     struct AppConfig {
         DatabaseSettings databaseSettings;
         GeneralSettings generalSettings;
+
+        // little helperfunction to be able to stick to DRY
+        inline void setDatabaseSettings(json configFragment) {
+            this->databaseSettings.host = QtPrivate::convertToQString(
+                MyTools::JsonManager::GetStringValue(configFragment, "host")
+            );
+            this->databaseSettings.port = MyTools::JsonManager::GetIntValue(configFragment, "port");
+
+            this->databaseSettings.user = QtPrivate::convertToQString(
+                MyTools::JsonManager::GetStringValue(configFragment, "username")
+            );
+            this->databaseSettings.password = QtPrivate::convertToQString(
+                MyTools::JsonManager::GetStringValue(configFragment, "password")
+            );
+            this->databaseSettings.dbName = QtPrivate::convertToQString(
+                MyTools::JsonManager::GetStringValue(configFragment, "databaseName")
+            );
+        }
     };
 
-    bool LoadSettings(AppConfig appConfig, DbConfig dbConfig);
+    static bool LoadSettings(AppConfig &appConfig, DbConfig dbConfig, json &jsonFile);
 };
 #endif //SETTINGS_H

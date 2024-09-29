@@ -33,15 +33,15 @@ int main(int argc, char *argv[]) {
 
     // Gets the filepath of root-CMakeLists.txt because I can use that path as a basepath for other file operations
     std::string sourceFilePath = MyTools::Misc::GetSourceDir();
+
     // Gets the contents of the config files
     json configurationFile = MyTools::JsonManager::ReadFile(sourceFilePath + "/config.json");
-
-    // Gets the databaseconfig
-    json dbConfigFragment = MyTools::JsonManager::getDatabaseConfig(configurationFile, "development");
-    std::string value = MyTools::JsonManager::GetStringValue(dbConfigFragment, "host");
-
+    // Creates the major settings object
     Settings::AppConfig appConfig;
 
+    // Load all the needed settings I already know about... ---> appconstants, dbConfigs, anything which will be set
+    // once and only needs to be readonly
+    Settings::LoadSettings(appConfig, currentDbConfig, configurationFile);
 
     SPDLOG_INFO("Starting Application...");
 
