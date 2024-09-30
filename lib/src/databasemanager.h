@@ -12,23 +12,35 @@
 #include "corelogger.h"
 #include "settings.h"
 #include <MyTools/jsonmanager.h>
-class DatabaseManager
-{
+
+class DatabaseManager {
 public:
     DatabaseManager();
+
     virtual ~DatabaseManager();
 
     bool ConnectDatabase();
-    bool ConnectDatabase(json jsonFile,const Settings::DbConfig& config);
-    bool QueryPostgres(USER_CREDENTIALS userCredentialContent);
-    bool QueryPostgres(INVENTORY inventoryContent);
-    bool QueryPostgres(TYPE typeContent);
-    bool QueryPostgres(INVENTORY_PRODUCTS inventoryProductsContent);
-    bool QueryPostgres(UNIT unitContent);
-    bool QueryPostgres(TEMPLATE_PRODUCTS templateProductsContent);
-    bool QueryPostgres(CATEGORY categoryContent);
-    bool QueryPostgres(INGREDIENT ingredientConent);
-    bool QueryPostgres(BARCODE barcodeContent);
+
+    bool ConnectDatabase(json jsonFile, const Settings::DbConfig &config);
+
+    //
+    bool QueryPostgres(USER_CREDENTIALS userCredentialContent, QString queryString);
+
+    bool QueryPostgres(INVENTORY inventoryContent, QString queryString);
+
+    bool QueryPostgres(TYPE typeContent, QString queryString);
+
+    bool QueryPostgres(INVENTORY_PRODUCTS inventoryProductsContent, QString queryString);
+
+    bool QueryPostgres(UNIT unitContent, QString queryString);
+
+    bool QueryPostgres(TEMPLATE_PRODUCTS templateProductsContent, QString queryString);
+
+    bool QueryPostgres(CATEGORY categoryContent, QString queryString);
+
+    bool QueryPostgres(INGREDIENT ingredientConent, QString queryString);
+
+    bool QueryPostgres(BARCODE barcodeContent, QString queryString);
 };
 
 #endif // DATABASEMANAGER_H

@@ -2,10 +2,11 @@
 #include "../../../MyTools/include/MyTools/fileparser.h"
 #include "../../cmake/MyTools/include/MyTools/misc.h"
 
-DatabaseManager::DatabaseManager() {}
+DatabaseManager::DatabaseManager() {
+}
 
-DatabaseManager::~DatabaseManager()
-{}
+DatabaseManager::~DatabaseManager() {
+}
 
 // Für Testzwecke und Mobiles arbeiten könnte ich eine Qsqlite Datenbank verwenden, aber für die tatsächliche
 // Implementierung sollte ich etwas anderes verwenden, was ich auch auf dem Raspi- zum Laufen bekomme
@@ -14,13 +15,11 @@ DatabaseManager::~DatabaseManager()
 Es ist wichtig, dass unbedingt libpq.5.dylib eingebunden wird, die aus dem Postgresql@15 Ordner in opt/homebrew/cellar... kommt.
 Andernfalls kann sich Postgresql nicht verbinden
 */
-bool DatabaseManager::ConnectDatabase()
-{
-
+bool DatabaseManager::ConnectDatabase() {
     // Read out that local .env-file
     std::string SourcePath = MyTools::Misc::GetSourceDir();
     SourcePath += "/.env";
-    std::unordered_map<std::string, std::string>envMap = MyTools::Fileparser::parseEnvFile(SourcePath);
+    std::unordered_map<std::string, std::string> envMap = MyTools::Fileparser::parseEnvFile(SourcePath);
 
 
     // save the values into some locals -> they need to get converted anyways
@@ -35,7 +34,7 @@ bool DatabaseManager::ConnectDatabase()
     // initialize database connection
     QSqlDatabase db = QSqlDatabase::addDatabase("QPSQL");
     db.setHostName(QString::fromStdString(hostname));
-    db.setPort(std::stoi( port ));
+    db.setPort(std::stoi(port));
     db.setDatabaseName(QString::fromStdString(dbname));
     db.setUserName(QString::fromStdString(username));
     db.setPassword(QString::fromStdString(password));
@@ -49,6 +48,7 @@ bool DatabaseManager::ConnectDatabase()
 
     return false;
 }
+
 //
 bool DatabaseManager::ConnectDatabase(json jsonFile, const Settings::DbConfig &config) {
     std::string configIdentifier;
@@ -57,7 +57,7 @@ bool DatabaseManager::ConnectDatabase(json jsonFile, const Settings::DbConfig &c
         case(Settings::DbConfig::Debug):
             configIdentifier = "development";
 
-            // Now I can call a function to get a json fragment of the dbconfiguration
+        // Now I can call a function to get a json fragment of the dbconfiguration
 
             break;
         case(Settings::DbConfig::Release):
@@ -71,8 +71,7 @@ bool DatabaseManager::ConnectDatabase(json jsonFile, const Settings::DbConfig &c
     return false;
 }
 
-bool DatabaseManager::QueryPostgres(USER_CREDENTIALS userCredentialContent)
-{
+bool DatabaseManager::QueryPostgres(USER_CREDENTIALS userCredentialContent, QString queryString) {
     // Einfachste Möglichkeit an eine gültige Instanz der Datenbank zu bekommen
     // und sie anschließend mit dem Queryobjekt zu verknüpfen
     QSqlDatabase db = QSqlDatabase::database();

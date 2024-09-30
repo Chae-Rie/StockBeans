@@ -43,6 +43,8 @@ int main(int argc, char *argv[]) {
     // once and only needs to be readonly
     Settings::LoadSettings(appConfig, currentDbConfig, configurationFile);
 
+    // TODO: Create a Setup-Namespace in setup.h setup.cpp to abstract all of the setup stuff
+    // TODO: Fix the yaml CI/CD file...
     SPDLOG_INFO("Starting Application...");
 
     // Setup Database
