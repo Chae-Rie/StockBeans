@@ -28,9 +28,8 @@ bool Settings::LoadSettings(AppConfig &appConfig, DbConfig dbConfig, json &jsonF
             break;
     }
 
-    return false;
-
     // TODO: Pollute the generic Settings
+    return true;
 }
 
 

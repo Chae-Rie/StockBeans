@@ -4,6 +4,9 @@
 #include "lib/src/corelogger.h"
 #include <QApplication>
 
+// TODO: Fix the yaml CI/CD file...
+// TODO: Create a Setup-Namespace in setup.h setup.cpp to abstract all of the setup stuff
+
 // Sets the logging level
 #ifdef NDEBUG
 constexpr spdlog::level::level_enum logLevel = spdlog::level::info; // Release-Modus
@@ -41,10 +44,13 @@ int main(int argc, char *argv[]) {
 
     // Load all the needed settings I already know about... ---> appconstants, dbConfigs, anything which will be set
     // once and only needs to be readonly
-    Settings::LoadSettings(appConfig, currentDbConfig, configurationFile);
-
-    // TODO: Create a Setup-Namespace in setup.h setup.cpp to abstract all of the setup stuff
-    // TODO: Fix the yaml CI/CD file...
+    bool gotLoaded = false;
+    gotLoaded = Settings::LoadSettings(appConfig, currentDbConfig, configurationFile);
+    if (!gotLoaded) {
+        // bad
+        SPDLOG_ERROR("Failed to load settings from {0}", sourceFilePath);
+        return EXIT_FAILURE; // this translates to 1
+    }
     SPDLOG_INFO("Starting Application...");
 
     // Setup Database
