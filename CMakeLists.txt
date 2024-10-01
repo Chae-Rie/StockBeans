@@ -32,6 +32,7 @@ set(CMAKE_TOOLCHAIN_FILE
 # is working fine.
 set(nlohmann_json_DIR "${CMAKE_CURRENT_LIST_DIR}/vcpkg_installed/arm64-osx/share/nlohmann_json")
 set(GTest_DIR "${CMAKE_CURRENT_LIST_DIR}/vcpkg_installed/arm64-osx/share/gtest")
+
 # QT paths on the dev machine... using QT 6.6.2 --> make sure the path is still valid after some updates on the framework
 set(CMAKE_PREFIX_PATH "$ENV{HOME}/dev/qt_framework/6.6.2/macos")
 set(QT_DIR "$ENV{HOME}/dev/qt_framework/6.6.2/macos/lib/cmake/Qt6")

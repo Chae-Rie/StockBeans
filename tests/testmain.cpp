@@ -1,10 +1,8 @@
 
-int main(int argc, char *argv[])
-{
-    // // Testen der Datenbankverbindung, ganz fundamental
-    // TestDatabaseConnection testDbConnection;
-    // QTest::qExec(&testDbConnection, argc, argv);
+// test_main.cpp
+#include <gtest/gtest.h>
 
-    // Testdatabasequeries testDbQueries;
-    // QTest::qExec(&testDbQueries, argc, argv);
+int main(int argc, char **argv) {
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
 }

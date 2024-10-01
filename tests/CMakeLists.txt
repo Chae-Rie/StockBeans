@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
+include_directories(${GTEST_INCLUDE_DIRS})
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -36,3 +37,4 @@ target_link_libraries(StockBeansTests PRIVATE
 )
 
 enable_testing()
+add_test(NAME MyTests COMMAND tests)
