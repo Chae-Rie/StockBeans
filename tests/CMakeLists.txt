@@ -7,7 +7,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Sammeln der Dateien für die Unittests
 set(TEST_SOURCES
         testmain.cpp
-        helperfunction_test.cpp
+        test_helperfunction.cpp
+        test_databasemanager.cpp
 )
 
 find_package(GTest CONFIG REQUIRED)
@@ -33,6 +34,10 @@ endif ()
 target_link_libraries(StockBeansTests PRIVATE
         StockBeansLib
         Qt${QT_VERSION_MAJOR}::Widgets
+        Qt${QT_VERSION_MAJOR}::Sql
+        MyTools_lib::MyTools_lib
+        spdlog::spdlog
+        nlohmann_json::nlohmann_json
         GTest::gtest
         GTest::gtest_main
 )

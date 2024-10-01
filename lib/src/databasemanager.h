@@ -21,7 +21,7 @@ public:
 
     bool ConnectDatabase();
 
-    bool ConnectDatabase(json jsonFile, const Settings::DbConfig &config);
+    bool initializeDatabaseConnection(Settings::AppConfig &appConfig);
 
     //
     bool QueryPostgres(USER_CREDENTIALS userCredentialContent, QString queryString);

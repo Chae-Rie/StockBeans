@@ -22,7 +22,7 @@ TEST_F(HelperFunctionTest, CalculateSHA256Hash_EmptyInput) {
 }
 
 TEST_F(HelperFunctionTest, CalculateSHA256Hash_DifferentCharsets) {
-    QString input = "你好, 世界!"; // "Hello, World!" auf Chinesisch
+    QString input = "你好, 世界!"; // "Hello, World!" on chinese :D
     QString expectedOutput = "12477654131605bfc19ba5a3862ac54f18f9140509fcb3c1faad687c75ff64d1";
     ASSERT_EQ(HelperFunction::CalculateSHA256Hash(input), expectedOutput);
 }

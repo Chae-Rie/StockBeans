@@ -6,6 +6,36 @@
 
 // TODO: Fix the yaml CI/CD file...
 // TODO: Create a Setup-Namespace in setup.h setup.cpp to abstract all of the setup stuff
+/*
+ * TODO: Projektstruktur anpassen, PRIO 1
+*project_root/
+├── src/
+│   ├── main.cpp
+│   ├── util/
+│   │   ├── utils.cpp
+│   │   └── utils.h
+│   ├── ui/
+│   │   ├── main_window.cpp
+│   │   ├── main_window.h
+│   └── database/
+│       ├── db_manager.cpp
+│       └── db_manager.h
+├── include/
+│   ├── project_name/
+│   │   ├── utils.h
+│   │   └── db_manager.h
+├── tests/
+│   ├── main.cpp
+│   ├── util/
+│   │   └── test_utils.cpp
+│   ├── ui/
+│   │   └── test_main_window.cpp
+│   └── database/
+│       └── test_db_manager.cpp
+├── CMakeLists.txt
+├── vcpkg.json
+└── README.md
+ **/
 
 // Sets the logging level
 #ifdef NDEBUG

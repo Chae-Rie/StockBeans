@@ -49,27 +49,9 @@ bool DatabaseManager::ConnectDatabase() {
     return false;
 }
 
-//
-bool DatabaseManager::ConnectDatabase(json jsonFile, const Settings::DbConfig &config) {
-    std::string configIdentifier;
-
-    switch (config) {
-        case(Settings::DbConfig::Debug):
-            configIdentifier = "development";
-
-        // Now I can call a function to get a json fragment of the dbconfiguration
-
-            break;
-        case(Settings::DbConfig::Release):
-            // Now I can call a function to get a json fragment of the dbconfiguration
-            configIdentifier = "production";
-
-            break;
-        default:
-            break;
-    }
-    return false;
+bool DatabaseManager::initializeDatabaseConnection(Settings::AppConfig &appConfig) {
 }
+
 
 bool DatabaseManager::QueryPostgres(USER_CREDENTIALS userCredentialContent, QString queryString) {
     // Einfachste Möglichkeit an eine gültige Instanz der Datenbank zu bekommen
