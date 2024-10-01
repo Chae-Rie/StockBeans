@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Sammeln der Dateien für die Unittests
 set(TEST_SOURCES
         testmain.cpp
+        helperfunction_test.cpp
 )
 
 find_package(GTest CONFIG REQUIRED)
