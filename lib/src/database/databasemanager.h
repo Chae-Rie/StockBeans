@@ -9,9 +9,9 @@
 #include <QtSql/QSqlError>
 
 #include "types.h"
-#include "corelogger.h"
-#include "settings.h"
-#include <MyTools/jsonmanager.h>
+#include "../util/corelogger.h"
+#include "../util/settings.h"
+#include <../../cmake/MyTools/include/MyTools/jsonmanager.h>
 
 class DatabaseManager {
 public:

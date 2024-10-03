@@ -1,6 +1,6 @@
-#include "lib/src/logindialog.h"
-#include "lib/src/databasemanager.h"
-#include "lib/src/helperfunction.h"
+#include "lib/src/ui/logindialog.h"
+#include "lib/src/database/databasemanager.h"
+#include "lib/src/util/helperfunction.h"
 #include "lib/src/corelogger.h"
 #include <QApplication>
 
@@ -48,7 +48,7 @@ constexpr spdlog::level::level_enum logLevel = spdlog::level::debug; // Debug-Mo
 #include <MyTools/jsonmanager.h>
 #include <MyTools/fileparser.h>
 #include <MyTools/misc.h>
-#include "lib/src/settings.h"
+#include "lib/src/util/settings.h"
 
 #ifdef NDEBUG
 constexpr auto currentDbConfig = Settings::DbConfig::Release;

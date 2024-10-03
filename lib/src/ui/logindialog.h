@@ -4,7 +4,7 @@
 #include <QDialog>
 #include <QLineEdit>
 #include <QVBoxLayout>
-#include "databasemanager.h"
+#include "../database/databasemanager.h"
 
 namespace Ui {
 class LoginDialog;

@@ -2,7 +2,7 @@
 // Created by Yoo Cherry on 01.10.24.
 //
 #include <gtest/gtest.h>
-#include "../lib/src/databasemanager.h"
+#include "../lib/src/database/databasemanager.h"
 
 class DatabaseManagerTest : public ::testing::Test {
   void SetUp() override {

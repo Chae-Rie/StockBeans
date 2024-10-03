@@ -5,10 +5,15 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Sammeln der Dateien für die Unittests
+
+add_subdirectory(database/)
+add_subdirectory(util/)
+#add_subdirectory(ui/)
+
 set(TEST_SOURCES
         testmain.cpp
-        test_helperfunction.cpp
-        test_databasemanager.cpp
+        ${TEST_DATABASE_SOURCES}
+        ${TEST_UTIL_SOURCES}
 )
 
 find_package(GTest CONFIG REQUIRED)

@@ -5,7 +5,7 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
-#include <MyTools/jsonmanager.h>
+#include <../../../cmake/MyTools/include/MyTools/jsonmanager.h>
 #include <QString>
 
 class Settings {
