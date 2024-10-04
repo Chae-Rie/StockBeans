@@ -16,11 +16,31 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 #        util/settings.h util/settings.cpp
 #)
 
-# calling the different CMakeLists.txt to gather all the needed sources
-add_subdirectory(database/)
-add_subdirectory(ui/)
-add_subdirectory(util)
+set(DATABASE_SOURCES
+        database/databasemanager.cpp
+        database/databasemanager.h
+        database/sqlquery.cpp
+        database/sqlquery.h
+        database/types.h
+)
 
+set(UI_SOURCES
+        ui/logindialog.ui
+        ui/logindialog.cpp
+        ui/logindialog.h
+        ui/mainwindow.ui
+        ui/mainwindow.cpp
+        ui/mainwindow.h
+)
+
+set(UTIL_SOURCES
+        util/corelogger.cpp
+        util/corelogger.h
+        util/helperfunction.cpp
+        util/helperfunction.h
+        util/settings.cpp
+        util/settings.h
+)
 # adds all the stuff together
 add_library(StockBeansLib STATIC ${DATABASE_SOURCES} ${UTIL_SOURCES} ${UI_SOURCES})
 

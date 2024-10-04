@@ -6,9 +6,12 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Shortening the include paths
+include_directories(${CMAKE_SOURCE_DIR}/cmake/MyTools/include/MyTools)
 # Setting Custom Environment variables
 #set(QT_DEBUG_PLUGINS ON)
 

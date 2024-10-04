@@ -4,13 +4,19 @@ include_directories(${GTEST_INCLUDE_DIRS})
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Sammeln der Dateien für die Unittests
+# shortening the needed include paths
+include_directories(${CMAKE_CURRENT_LIST_DIR}/../lib/src/)
 
-add_subdirectory(database/)
-add_subdirectory(util/)
-#add_subdirectory(ui/)
+set(TEST_DATABASE_SOURCES
+        database/test_databasemanager.cpp
+)
 
-set(TEST_SOURCES
+set(TEST_UTIL_SOURCES
+        util/test_helperfunction.cpp
+)
+
+
+set(COMBINED_TEST_SOURCES
         testmain.cpp
         ${TEST_DATABASE_SOURCES}
         ${TEST_UTIL_SOURCES}
@@ -24,11 +30,11 @@ find_package(GTest CONFIG REQUIRED)
 # der offensichtlichen Testdateien (die hoffentlich immer test im Namen haben)
 if (${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(StockBeansTests
-            ${TEST_SOURCES}
+            ${COMBINED_TEST_SOURCES}
     )
 else ()
     add_executable(StockBeansTests
-            ${TEST_SOURCES}
+            ${COMBINED_TEST_SOURCES}
     )
 endif ()
 

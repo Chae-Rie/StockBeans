@@ -1,6 +1,6 @@
 #include "databasemanager.h"
-#include "../../../MyTools/include/MyTools/fileparser.h"
-#include "../../cmake/MyTools/include/MyTools/misc.h"
+#include "fileparser.h"
+#include "misc.h"
 
 DatabaseManager::DatabaseManager() {
 }

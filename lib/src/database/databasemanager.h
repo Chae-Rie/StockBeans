@@ -11,7 +11,7 @@
 #include "types.h"
 #include "../util/corelogger.h"
 #include "../util/settings.h"
-#include <../../cmake/MyTools/include/MyTools/jsonmanager.h>
+#include <../../../cmake/MyTools/include/MyTools/jsonmanager.h>
 
 class DatabaseManager {
 public:

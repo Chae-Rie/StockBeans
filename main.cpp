@@ -1,7 +1,7 @@
 #include "lib/src/ui/logindialog.h"
 #include "lib/src/database/databasemanager.h"
 #include "lib/src/util/helperfunction.h"
-#include "lib/src/corelogger.h"
+#include "lib/src/util/corelogger.h"
 #include <QApplication>
 
 // TODO: Fix the yaml CI/CD file...
@@ -45,9 +45,9 @@ constexpr spdlog::level::level_enum logLevel = spdlog::level::debug; // Debug-Mo
 #endif
 
 
-#include <MyTools/jsonmanager.h>
-#include <MyTools/fileparser.h>
-#include <MyTools/misc.h>
+#include <jsonmanager.h>
+#include <fileparser.h>
+#include <misc.h>
 #include "lib/src/util/settings.h"
 
 #ifdef NDEBUG
