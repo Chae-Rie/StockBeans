@@ -50,6 +50,7 @@ bool DatabaseManager::ConnectDatabase() {
 }
 
 bool DatabaseManager::initializeDatabaseConnection(Settings::AppConfig &appConfig) {
+    return false;
 }
 
 

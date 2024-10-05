@@ -23,7 +23,7 @@ set(COMBINED_TEST_SOURCES
 )
 
 find_package(GTest CONFIG REQUIRED)
-
+include_directories(${GTEST_INCLUDE_DIRS})
 
 # Fügen Sie Unittests hinzu
 # Jetzt bekommt also die .exe für die Tests alle Inhalte der PROJECT_SOURCES und
@@ -51,6 +51,8 @@ target_link_libraries(StockBeansTests PRIVATE
         nlohmann_json::nlohmann_json
         GTest::gtest
         GTest::gtest_main
+        ${GTEST_LIBRARIES}
+        pthread
 )
 
 enable_testing()
