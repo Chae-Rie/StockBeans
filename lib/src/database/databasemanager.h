@@ -15,11 +15,11 @@
 
 class DatabaseManager {
 public:
-    DatabaseManager();
+    DatabaseManager() = default;
 
-    virtual ~DatabaseManager();
+    virtual ~DatabaseManager() = default;
 
-    bool ConnectDatabase();
+    bool connect()
 
     bool initializeDatabaseConnection(Settings::AppConfig &appConfig);
 
