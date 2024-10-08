@@ -1,4 +1,4 @@
-#include "helperfunction.h"
+#include "HelperFunction.h"
 
 
 QString HelperFunction::GetCurrentTime() {

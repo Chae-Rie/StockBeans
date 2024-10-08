@@ -8,11 +8,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 include_directories(${CMAKE_CURRENT_LIST_DIR}/../lib/src/)
 
 set(TEST_DATABASE_SOURCES
-        database/test_databasemanager.cpp
+        database/DatabaseManagerTest.cpp
+        database/MockDatabase.h
 )
 
 set(TEST_UTIL_SOURCES
-        util/test_helperfunction.cpp
+        util/HelperFunctionTest.cpp
 )
 
 
@@ -51,7 +52,7 @@ target_link_libraries(StockBeansTests PRIVATE
         nlohmann_json::nlohmann_json
         GTest::gtest
         GTest::gtest_main
-        ${GTEST_LIBRARIES}
+        ${GTEST_BOTH_LIBRARIES}
         pthread
 )
 

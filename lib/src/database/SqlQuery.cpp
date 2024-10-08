@@ -2,7 +2,7 @@
 // Created by Yoo Cherry on 30.09.24.
 //
 
-#include "sqlquery.h"
+#include "SqlQuery.h"
 
 SqlQuery& SqlQuery::select(const QStringList& columns) {
     query = "SELECT ";

@@ -3,7 +3,7 @@
 //
 
 #include <gtest/gtest.h>
-#include "util/helperfunction.h"
+#include "util/HelperFunction.h"
 
 class HelperFunctionTest : public ::testing::Test {
 protected:

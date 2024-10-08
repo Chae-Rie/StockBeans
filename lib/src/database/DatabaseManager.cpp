@@ -1,4 +1,4 @@
-#include "databasemanager.h"
+#include "DatabaseManager.h"
 #include "fileparser.h"
 #include "misc.h"
 

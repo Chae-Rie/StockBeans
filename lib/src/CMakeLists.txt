@@ -15,10 +15,10 @@ set(DATABASE_SOURCES
 )
 
 set(UI_SOURCES
-        ui/logindialog.ui
+        ui/LoginDialog.ui
         ui/logindialog.cpp
         ui/logindialog.h
-        ui/mainwindow.ui
+        ui/MainWindow.ui
         ui/mainwindow.cpp
         ui/mainwindow.h
 )

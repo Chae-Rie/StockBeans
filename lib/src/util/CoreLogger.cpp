@@ -1,4 +1,4 @@
-#include "corelogger.h"
+#include "CoreLogger.h"
 
 
 CoreLogger::CoreLogger() {
