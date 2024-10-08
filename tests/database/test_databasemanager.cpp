@@ -14,38 +14,21 @@ class DatabaseManagerTest : public ::testing::Test {
     };
 };
 
+// I need a mock class because I don't want to establish a real database connection for testing
+// In this case I simulate those important objects through a mock-object... (can be understood
+// as a placeholderobject)
 class MockDatabaseManager : public DatabaseManager {
 public:
-    // simulate the QSql methods
-    MOCK_METHOD(bool, open, (), ());
-    MOCK_METHOD(void, setHostName, (const QString&), ());
-    MOCK_METHOD(void, setPort, (int), ());
-    MOCK_METHOD(void, setDatabaseName, (const QString&), ());
-    MOCK_METHOD(void, setUserName, (const QString&), ());
-    MOCK_METHOD(void, setPassword, (const QString&), ());
-    MOCK_METHOD(QSqlError, lastError, (), ());
 };
 
 
-TEST(DatabaseManagerTest, ConnectSuccess) {
-    MockDatabaseManager mockDb;
-    DatabaseManager dbManager;
+// --------- End Declaration ----------
 
-    EXPECT_CALL(mockDb, setHostName(QString("localhost")));
-    EXPECT_CALL(mockDb, setPort(5432));
-    EXPECT_CALL(mockDb, setDatabaseName(QString("testdb")));
-    EXPECT_CALL(mockDb, setUserName(QString("user")));
-    EXPECT_CALL(mockDb, setPassword(QString("pass")));
-    EXPECT_CALL(mockDb, open()).WillOnce(testing::Return(true));
+TEST(DatabaseManagerTest, createdValidDatabaseObject) {
+    bool isConnectionValid = false;
 
-    // I dont get this...
-    //  bool connected = dbManager.connect(mockDb, "localhost", "5432", "testdb", "user", "pass");
-    // EXPECT_TRUE(connected);
+    QSqlDatabase db = QSqlDatabase::addDatabase("QPSQL");
+
+    isConnectionValid = db.isValid();
+    EXPECT_TRUE(isConnectionValid);
 }
-
-TEST_F(DatabaseManagerTest, initializeDatabaseConnectionSucceeded) {
-    bool expectedOutput{true};
-    bool actualOutput = {false};
-    ASSERT_EQ(expectedOutput, actualOutput);
-}
-

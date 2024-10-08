@@ -2,20 +2,18 @@
 #include "fileparser.h"
 #include "misc.h"
 
-/*
-Es ist wichtig, dass unbedingt libpq.5.dylib eingebunden wird, die aus dem Postgresql@15 Ordner in opt/homebrew/cellar... kommt.
-Andernfalls kann sich Postgresql nicht verbinden
-*/
+/* Make sure you are getting the absolute path to the libpq.5.dylib file inside the
+ * Postgresql@15 directory. Otherwise you won't be able to establish a working connection.
+ */
 
-bool DatabaseManager::initializeDatabaseConnection(Settings::AppConfig &appConfig) {
-    return false;
+DatabaseManager::DatabaseManager(IDatabase &databaseRef) : m_database(databaseRef) {
 }
 
-
-bool DatabaseManager::QueryPostgres(USER_CREDENTIALS userCredentialContent, QString queryString) {
-    // Einfachste Möglichkeit an eine gültige Instanz der Datenbank zu bekommen
-    // und sie anschließend mit dem Queryobjekt zu verknüpfen
-    QSqlDatabase db = QSqlDatabase::database();
-    QSqlQuery dbQuery(db);
-    return false;
+bool DatabaseManager::connect(const Settings::AppConfig &appConfig) {
+    m_database.setHostName(appConfig.databaseSettings.host);
+    m_database.setDatabaseName(appConfig.databaseSettings.dbName);
+    m_database.setUserName(appConfig.databaseSettings.user);
+    m_database.setPassword(appConfig.databaseSettings.password);
+    m_database.setPort(appConfig.databaseSettings.port);
+    return m_database.open();
 }

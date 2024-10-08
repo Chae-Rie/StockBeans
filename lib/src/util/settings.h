@@ -21,9 +21,8 @@ public:
     };
 
     struct DatabaseSettings {
-        // TODO: trying to use QString instead of std::string//std::wstring
         QString host;
-        int port;
+        unsigned int port;
         QString user;
         QString password;
         QString dbName;

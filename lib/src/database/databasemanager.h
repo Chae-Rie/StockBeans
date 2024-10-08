@@ -8,6 +8,7 @@
 #include <QtSql/QSqlQueryModel>
 #include <QtSql/QSqlError>
 
+#include "IDatabase.h"
 #include "types.h"
 #include "../util/corelogger.h"
 #include "../util/settings.h"
@@ -15,15 +16,15 @@
 
 class DatabaseManager {
 public:
-    DatabaseManager() = default;
+    explicit DatabaseManager(IDatabase &databaseRef);
 
     virtual ~DatabaseManager() = default;
 
-    bool connect()
 
-    bool initializeDatabaseConnection(Settings::AppConfig &appConfig);
+    bool connect(const Settings::AppConfig &appConfig);
 
-    //
+
+    //_---------
     bool QueryPostgres(USER_CREDENTIALS userCredentialContent, QString queryString);
 
     bool QueryPostgres(INVENTORY inventoryContent, QString queryString);
@@ -41,6 +42,9 @@ public:
     bool QueryPostgres(INGREDIENT ingredientConent, QString queryString);
 
     bool QueryPostgres(BARCODE barcodeContent, QString queryString);
+
+private:
+    IDatabase &m_database;
 };
 
 #endif // DATABASEMANAGER_H

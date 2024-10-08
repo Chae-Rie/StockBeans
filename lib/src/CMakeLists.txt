@@ -3,22 +3,12 @@ cmake_minimum_required(VERSION 3.5)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-## Setting up all the relevant files for the main.cpp in the StockBeansApp
-#set(LIB_SOURCES
-#        ui/mainwindow.cpp
-#        ui/mainwindow.h
-#        ui/mainwindow.ui
-#        database/databasemanager.h database/databasemanager.cpp
-#        ui/logindialog.h ui/logindialog.cpp ui/logindialog.ui
-#        util/helperfunction.h util/helperfunction.cpp
-#        util/corelogger.h util/corelogger.cpp
-#        database/types.h
-#        util/settings.h util/settings.cpp
-#)
-
 set(DATABASE_SOURCES
         database/databasemanager.cpp
         database/databasemanager.h
+        database/IDatabase.h
+        database/SqlDatabaseWrapper.cpp
+        database/SqlDatabaseWrapper.h
         database/sqlquery.cpp
         database/sqlquery.h
         database/types.h
