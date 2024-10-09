@@ -47,12 +47,8 @@ constexpr spdlog::level::level_enum logLevel = spdlog::level::debug; // Debug-Mo
 #include <jsonmanager.h>
 #include <fileparser.h>
 #include <misc.h>
+#include "lib/src/util/DatabaseSettings.h"
 
-#ifdef NDEBUG
-//constexpr auto currentDbConfig = DbConfig::Release;
-#else
-//constexpr auto currentDbConfig = DbConfig::Debug;
-#endif
 
 int main(int argc, char *argv[]) {
     // Creating the main application
