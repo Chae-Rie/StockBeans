@@ -11,18 +11,13 @@
 #include "IDatabase.h"
 #include "Types.h"
 #include "../util/CoreLogger.h"
-#include "../util/Settings.h"
 #include "jsonmanager.h"
 
 class DatabaseManager {
 public:
-    explicit DatabaseManager(IDatabase &databaseRef);
+    DatabaseManager();
 
     virtual ~DatabaseManager() = default;
-
-
-    bool connect(const Settings::AppConfig &appConfig);
-
 
     //_---------
     bool QueryPostgres(USER_CREDENTIALS userCredentialContent, QString queryString);

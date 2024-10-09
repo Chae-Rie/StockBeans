@@ -7,7 +7,6 @@
 // TODO: Fix the yaml CI/CD file...
 // TODO: Create a Setup-Namespace in setup.h setup.cpp to abstract all of the setup stuff
 /*
- * TODO: Projektstruktur anpassen, PRIO 1
 *project_root/
 ├── src/
 │   ├── main.cpp
@@ -48,12 +47,11 @@ constexpr spdlog::level::level_enum logLevel = spdlog::level::debug; // Debug-Mo
 #include <jsonmanager.h>
 #include <fileparser.h>
 #include <misc.h>
-#include "lib/src/util/Settings.h"
 
 #ifdef NDEBUG
-constexpr auto currentDbConfig = Settings::DbConfig::Release;
+//constexpr auto currentDbConfig = DbConfig::Release;
 #else
-constexpr auto currentDbConfig = Settings::DbConfig::Debug;
+//constexpr auto currentDbConfig = DbConfig::Debug;
 #endif
 
 int main(int argc, char *argv[]) {
@@ -69,33 +67,7 @@ int main(int argc, char *argv[]) {
 
     // Gets the contents of the config files
     json configurationFile = MyTools::JsonManager::ReadFile(sourceFilePath + "/config.json");
-    // Creates the major settings object
-    Settings::AppConfig appConfig;
-
-    // Load all the needed settings I already know about... ---> appconstants, dbConfigs, anything which will be set
-    // once and only needs to be readonly
-    bool gotLoaded = false;
-    gotLoaded = Settings::LoadSettings(appConfig, currentDbConfig, configurationFile);
-    if (!gotLoaded) {
-        // bad
-        SPDLOG_ERROR("Failed to load settings from {0}", sourceFilePath);
-        return EXIT_FAILURE; // this translates to 1
-    }
     SPDLOG_INFO("Starting Application...");
-
-    // Setup Database
-    DatabaseManager dbManager;
-    // TODO: construct the connectionstring
-    // TODO: Connect to the database
-    //    dbManager.ConnectDatabase();
-
-    // TODO: Why did I get the timestamp?
-    QString currentTimeStamp = HelperFunction::GetCurrentTime();
-
-    // LoginDialog bekommt dbManager als Referenz übergeben, da wir im Dialog Queries versenden
-    // wollen -> TODO: ggf. std::shared_pointer verwenden, falls die Übersicht verloren gehen sollte.
-    LoginDialog loginDialog(dbManager);
-    loginDialog.show();
 
 
     // don't show the mainwindow until I logged in successfully!

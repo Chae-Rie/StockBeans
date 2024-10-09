@@ -81,8 +81,8 @@ target_link_libraries(StockBeansApp PRIVATE
         MyTools_lib::MyTools_lib
         spdlog::spdlog
         nlohmann_json::nlohmann_json
-        GTest::gtest
-        GTest::gtest_main
+        #GTest::gtest
+        #GTest::gtest_main
 )
 
 # Setting properties for the tests

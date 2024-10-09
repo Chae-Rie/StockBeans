@@ -6,14 +6,3 @@
  * Postgresql@15 directory. Otherwise you won't be able to establish a working connection.
  */
 
-DatabaseManager::DatabaseManager(IDatabase &databaseRef) : m_database(databaseRef) {
-}
-
-bool DatabaseManager::connect(const Settings::AppConfig &appConfig) {
-    m_database.setHostName(appConfig.databaseSettings.host);
-    m_database.setDatabaseName(appConfig.databaseSettings.dbName);
-    m_database.setUserName(appConfig.databaseSettings.user);
-    m_database.setPassword(appConfig.databaseSettings.password);
-    m_database.setPort(appConfig.databaseSettings.port);
-    return m_database.open();
-}

@@ -28,8 +28,6 @@ set(UTIL_SOURCES
         util/corelogger.h
         util/helperfunction.cpp
         util/helperfunction.h
-        util/settings.cpp
-        util/settings.h
 )
 # adds all the stuff together
 add_library(StockBeansLib STATIC ${DATABASE_SOURCES} ${UTIL_SOURCES} ${UI_SOURCES})
