@@ -8,43 +8,40 @@
 #include <QString>
 #include "ISettings.h"
 #include "jsonmanager.h"
-
+#include "CoreLogger.h"
 
 class AppSettings : public ISettings {
-public:
-    AppSettings(const json &jsonFile);
+ public:
+  explicit AppSettings(const json &jsonFile);
 
-    virtual ~AppSettings();
+  void load() override;
 
-    void load() override;
+  void save() override;
 
-    void save() override;
+  // getter
+  QString getAppName() const;
 
-    // getter
-    QString getAppName() const;
+  QString getAppVersion() const;
 
-    QString getAppVersion() const;
+  QString getDefaultLanguage() const;
 
-    QString getDefaultLanguage() const;
+  int getMaxRetries() const;
 
-    int getMaxRetries() const;
+  // setter
+  void setAppName(const QString &appName);
 
-    // setter
-    void setAppName(const QString &appName);
+  void setAppVersion(const QString &appVersion);
 
-    void setAppVersion(const QString &appVersion);
+  void setDefaultLanguage(const QString &defaultLanguage);
 
-    void setDefaultLanguage(const QString &defaultLanguage);
+  void setMaxRetries(int maxRetries);
 
-    void setMaxRetries(int maxRetries);
-
-private:
-    json jsonFile_;
-    QString appName_;
-    QString appVersion_;
-    QString defaultLanguage_;
-    int maxRetries_ = 0;
+ private:
+  json jsonFile_;
+  QString appName_;
+  QString appVersion_;
+  QString defaultLanguage_;
+  int maxRetries_ = 0;
 };
-
 
 #endif //APPSETTINGS_H

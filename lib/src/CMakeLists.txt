@@ -33,6 +33,8 @@ set(UTIL_SOURCES
         util/DatabaseSettings.h
         util/AppSettings.cpp
         util/AppSettings.h
+        util/SettingsManager.cpp
+        util/SettingsManager.h
 )
 # adds all the stuff together
 add_library(StockBeansLib STATIC ${DATABASE_SOURCES} ${UTIL_SOURCES} ${UI_SOURCES})

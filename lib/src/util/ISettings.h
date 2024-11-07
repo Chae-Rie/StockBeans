@@ -6,11 +6,11 @@
 #define ISETTINGS_H
 
 class ISettings {
-public:
-    virtual ~ISettings();
+ public:
+  virtual ~ISettings() = default;
 
-    virtual void load() = 0;
+  virtual void load() = 0;
 
-    virtual void save() = 0;
+  virtual void save() = 0;
 };
 #endif //ISETTINGS_H

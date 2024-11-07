@@ -11,50 +11,47 @@
 #include "../util/CoreLogger.h"
 
 enum class DbConfig {
-    Debug,
-    Release
+  Debug,
+  Release
 };
 
 class DatabaseSettings : public ISettings {
-public:
-    DatabaseSettings(const json &jsonFile);
+ public:
+  explicit DatabaseSettings(const json &jsonFile);
 
-    virtual ~DatabaseSettings();
+  void load() override;
 
-    void load() override;
+  void save() override;
 
-    void save() override;
+  // getter
+  QString getHostName() const;
 
-    // getter
-    QString getHostName() const;
+  QString getUserName() const;
 
-    QString getUserName() const;
+  QString getPassword() const;
 
-    QString getPassword() const;
+  QString getDatabaseName() const;
 
-    QString getDatabaseName() const;
+  int getPort() const;
 
-    int getPort() const;
+  // setter
+  void setHostName(const QString &hostname);
 
-    // setter
-    void setHostName(const QString &hostname);
+  void setUserName(const QString &username);
 
-    void setUserName(const QString &username);
+  void setPassword(const QString &password);
 
-    void setPassword(const QString &password);
+  void setDatabaseName(const QString &databaseName);
 
-    void setDatabaseName(const QString &databaseName);
+  void setPort(int port);
 
-    void setPort(int port);
-
-private:
-    json jsonFile_;
-    QString hostname_;
-    QString username_;
-    QString password_;
-    QString databaseName_;
-    int port_;
+ private:
+  json jsonFile_;
+  QString hostname_;
+  QString username_;
+  QString password_;
+  QString databaseName_;
+  int port_;
 };
-
 
 #endif //DATABASESETTINGS_H

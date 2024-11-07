@@ -43,32 +43,32 @@ constexpr spdlog::level::level_enum logLevel = spdlog::level::info; // Release-M
 constexpr spdlog::level::level_enum logLevel = spdlog::level::debug; // Debug-Modus
 #endif
 
-
 #include <jsonmanager.h>
-#include <fileparser.h>
 #include <misc.h>
-#include "lib/src/util/DatabaseSettings.h"
-
+#include "lib/src/util/SettingsManager.h"
 
 int main(int argc, char *argv[]) {
-    // Creating the main application
-    QApplication application(argc, argv);
+  // Creating the main application
+  QApplication application(argc, argv);
 
-    // Set up the corelogging pool which will be handed to every important object
-    CoreLogger coreLogger;
-    coreLogger.SetupLogger(logLevel);
+  // Set up the corelogging pool which will be handed to every important object
+  CoreLogger coreLogger;
+  coreLogger.SetupLogger(logLevel);
 
-    // Gets the filepath of root-CMakeLists.txt because I can use that path as a basepath for other file operations
-    std::string sourceFilePath = MyTools::Misc::GetSourceDir();
+  // Gets the filepath of root-CMakeLists.txt because I can use that path as a basepath for other file operations
+  std::string sourceFilePath = MyTools::Misc::GetSourceDir();
 
-    // Gets the contents of the config files
-    json configurationFile = MyTools::JsonManager::ReadFile(sourceFilePath + "/config.json");
-    SPDLOG_INFO("Starting Application...");
+  // Gets the contents of the config files
+  json configurationFile = MyTools::JsonManager::ReadFile(sourceFilePath + "/config.json");
+  SPDLOG_INFO("Starting Application...");
 
+  SettingsManager sessionSettingsManager(configurationFile);
 
-    // don't show the mainwindow until I logged in successfully!
+  sessionSettingsManager.LoadAllSettings();
 
-    // MainWindow w;
-    // w.show();
-    return application.exec();
+  // don't show the mainwindow until I logged in successfully!
+
+  // MainWindow w;
+  // w.show();
+  return application.exec();
 }
