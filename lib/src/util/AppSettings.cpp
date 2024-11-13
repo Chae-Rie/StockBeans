@@ -12,7 +12,7 @@ void AppSettings::load() {
     SPDLOG_ERROR("Given json object is empty.");
     return;
   }
-  std::string default_value = "NoValue";
+  const char *default_value = "NoValue";
   setAppName(jsonFile_.value("appName", default_value).c_str());
   setAppVersion(jsonFile_.value("version", default_value).c_str());
   setDefaultLanguage(jsonFile_.value("defaultLanguage", default_value).c_str());

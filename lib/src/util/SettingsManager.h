@@ -10,20 +10,23 @@
 #include "jsonmanager.h"
 
 class SettingsManager {
- public:
-  SettingsManager(const json &completeConfig);
-  virtual ~SettingsManager();
+public:
+ explicit SettingsManager(const json &completeConfig);
 
-  DatabaseSettings &GetDatabaseSettings();
-  AppSettings &GetAppSettings();
+ virtual ~SettingsManager();
 
-  void LoadAllSettings();
-  // void SaveAllSettings(); // Maybe this could be needed later, but for now I don't allow any changes to settings
+ DatabaseSettings &GetDatabaseSettings();
 
-  
- private:
-  DatabaseSettings database_settings_;
-  AppSettings app_settings_;
+ AppSettings &GetAppSettings();
+
+ void LoadAllSettings();
+
+ // void SaveAllSettings(); // Maybe this could be needed later, but for now I don't allow any changes to settings
+
+
+private:
+ DatabaseSettings database_settings_;
+ AppSettings app_settings_;
 };
 
 #endif //SETTINGSMANAGER_H
