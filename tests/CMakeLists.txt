@@ -12,7 +12,6 @@ set(TEST_DATABASE_SOURCES
 
 set(TEST_UTIL_SOURCES
         util/HelperFunctionTest.cpp
-        util/SettingsManagerTest.cpp
 )
 
 

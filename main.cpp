@@ -1,9 +1,8 @@
 #include "lib/src/ui/LoginDialog.h"
-#include "lib/src/database/DatabaseManager.h"
 #include "lib/src/util/HelperFunction.h"
 #include "lib/src/util/CoreLogger.h"
 #include <QApplication>
-
+#include "lib/src/ui/MainWindow.h"
 // TODO: Fix the yaml CI/CD file...
 // TODO: Create a Setup-Namespace in setup.h setup.cpp to abstract all of the setup stuff
 /*
@@ -66,10 +65,7 @@ int main(int argc, char *argv[]) {
     SettingsManager sessionSettingsManager(configurationFile);
     sessionSettingsManager.LoadAllSettings();
 
-
-    // don't show the mainwindow until I logged in successfully!
-
-    // MainWindow w;
-    // w.show();
+    MainWindow w;
+    w.show();
     return application.exec();
 }
